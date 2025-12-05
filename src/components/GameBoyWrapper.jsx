@@ -32,33 +32,37 @@ export default function GameBoyWrapper({ children }) {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '15px',
+      padding: '10px',
       boxSizing: 'border-box',
       fontFamily: '"Press Start 2P", monospace',
+      overflow: 'hidden',
     }}>
       {/* Title above screen */}
       <div style={{
         color: GB_COLORS.darkest,
-        fontSize: 'clamp(10px, 3.5vw, 16px)', // Responsive font size
+        fontSize: 'clamp(10px, 3.5vw, 16px)',
         letterSpacing: 'clamp(2px, 1vw, 4px)',
-        marginBottom: 'clamp(8px, 2vw, 15px)',
+        marginBottom: 'clamp(5px, 1.5vw, 15px)',
         textShadow: `2px 2px 0 ${GB_COLORS.dark}`,
         textAlign: 'center',
+        flexShrink: 0,
       }}>
         BARCODE BATTLER
       </div>
 
-      {/* Game screen with border - scales to fit mobile */}
+      {/* Game screen with border - constrained to fit viewport */}
       <div style={{
         width: '100%',
         maxWidth: SCREEN_WIDTH,
-        aspectRatio: '160 / 144', // Maintain Game Boy aspect ratio
+        maxHeight: 'calc(100dvh - 80px)', // Leave room for title and credit
+        aspectRatio: '160 / 144',
         backgroundColor: GB_COLORS.lightest,
         border: `clamp(3px, 1vw, 6px) solid ${GB_COLORS.darkest}`,
         boxShadow: `0 0 0 clamp(1px, 0.5vw, 3px) ${GB_COLORS.dark}, 0 8px 24px rgba(0,0,0,0.3)`,
         overflow: 'hidden',
         imageRendering: 'pixelated',
         position: 'relative',
+        touchAction: 'manipulation',
       }}>
         {children}
       </div>
@@ -67,10 +71,11 @@ export default function GameBoyWrapper({ children }) {
       <div style={{
         fontSize: 'clamp(7px, 2vw, 10px)',
         letterSpacing: '2px',
-        marginTop: 'clamp(8px, 2vw, 15px)',
+        marginTop: 'clamp(5px, 1.5vw, 15px)',
         display: 'flex',
         alignItems: 'center',
         gap: 'clamp(4px, 1vw, 8px)',
+        flexShrink: 0,
       }}>
         <span style={{ color: SHELL_COLORS.dpad }}>BY LARS</span>
         <span style={{ color: SHELL_COLORS.select }}>·</span>
