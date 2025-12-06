@@ -25,8 +25,8 @@ const SCREEN_HEIGHT = 144 * SCALE; // 432px
 export default function GameBoyWrapper({ children }) {
   return (
     <div style={{
-      minHeight: '100vh',
-      minHeight: '100dvh', // Dynamic viewport height for mobile
+      width: '100%',
+      height: '100dvh',
       backgroundColor: SHELL_COLORS.body,
       display: 'flex',
       flexDirection: 'column',
@@ -40,42 +40,37 @@ export default function GameBoyWrapper({ children }) {
       {/* Title above screen */}
       <div style={{
         color: GB_COLORS.darkest,
-        fontSize: 'clamp(10px, 3.5vw, 16px)',
-        letterSpacing: 'clamp(2px, 1vw, 4px)',
-        marginBottom: 'clamp(5px, 1.5vw, 15px)',
+        fontSize: '14px',
+        letterSpacing: '3px',
+        marginBottom: '8px',
         textShadow: `2px 2px 0 ${GB_COLORS.dark}`,
         textAlign: 'center',
-        flexShrink: 0,
       }}>
         BARCODE BATTLER
       </div>
 
-      {/* Game screen with border - constrained to fit viewport */}
+      {/* Game screen - uses height-based width calculation */}
       <div style={{
-        width: '100%',
-        maxWidth: SCREEN_WIDTH,
-        maxHeight: 'calc(100dvh - 80px)', // Leave room for title and credit
+        width: 'calc((100dvh - 80px) * 160 / 144)',
+        maxWidth: 'min(100% - 20px, 480px)',
         aspectRatio: '160 / 144',
         backgroundColor: GB_COLORS.lightest,
-        border: `clamp(3px, 1vw, 6px) solid ${GB_COLORS.darkest}`,
-        boxShadow: `0 0 0 clamp(1px, 0.5vw, 3px) ${GB_COLORS.dark}, 0 8px 24px rgba(0,0,0,0.3)`,
+        border: '4px solid ' + GB_COLORS.darkest,
+        boxShadow: '0 0 0 2px ' + GB_COLORS.dark,
         overflow: 'hidden',
         imageRendering: 'pixelated',
-        position: 'relative',
-        touchAction: 'manipulation',
       }}>
         {children}
       </div>
 
-      {/* Credit below screen - Game Boy button colors! */}
+      {/* Credit below screen */}
       <div style={{
-        fontSize: 'clamp(7px, 2vw, 10px)',
-        letterSpacing: '2px',
-        marginTop: 'clamp(5px, 1.5vw, 15px)',
+        fontSize: '9px',
+        letterSpacing: '1px',
+        marginTop: '8px',
         display: 'flex',
         alignItems: 'center',
-        gap: 'clamp(4px, 1vw, 8px)',
-        flexShrink: 0,
+        gap: '6px',
       }}>
         <span style={{ color: SHELL_COLORS.dpad }}>BY LARS</span>
         <span style={{ color: SHELL_COLORS.select }}>·</span>
