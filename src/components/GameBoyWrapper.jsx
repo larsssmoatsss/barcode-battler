@@ -26,7 +26,8 @@ export default function GameBoyWrapper({ children }) {
   return (
     <div style={{
       width: '100%',
-      height: '100dvh',
+      minHeight: '100vh',
+      minHeight: '100dvh',
       backgroundColor: SHELL_COLORS.body,
       display: 'flex',
       flexDirection: 'column',
@@ -35,7 +36,6 @@ export default function GameBoyWrapper({ children }) {
       padding: '10px',
       boxSizing: 'border-box',
       fontFamily: '"Press Start 2P", monospace',
-      overflow: 'hidden',
     }}>
       {/* Title above screen */}
       <div style={{
@@ -49,14 +49,16 @@ export default function GameBoyWrapper({ children }) {
         BARCODE BATTLER
       </div>
 
-      {/* Game screen - uses height-based width calculation */}
+      {/* Game screen - fixed max size, shrinks on small screens */}
       <div style={{
-        width: 'calc((100dvh - 80px) * 160 / 144)',
-        maxWidth: 'min(100% - 20px, 480px)',
+        width: SCREEN_WIDTH,
+        height: SCREEN_HEIGHT,
+        maxWidth: 'calc(100vw - 20px)',
+        maxHeight: 'calc(100vh - 100px)',
         aspectRatio: '160 / 144',
         backgroundColor: GB_COLORS.lightest,
-        border: '4px solid ' + GB_COLORS.darkest,
-        boxShadow: '0 0 0 2px ' + GB_COLORS.dark,
+        border: `4px solid ${GB_COLORS.darkest}`,
+        boxShadow: `0 0 0 2px ${GB_COLORS.dark}`,
         overflow: 'hidden',
         imageRendering: 'pixelated',
       }}>
